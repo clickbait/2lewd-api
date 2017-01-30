@@ -1,0 +1,115 @@
+FORMAT: 1A
+HOST: https://lewd.sx/api/v0/
+
+# lewd.sx
+
+Version 0 of the API for lewd.sx forums. This is an initial alpha version and subject to breaking changes.
+
+# Group Users
+
+## User [/users/{id}]
+
+A User registered on lewd.sx.
+
+- Parameters
+    - id: `d19ba292-6661-41d1-a9d0-daa9e9191325` (string) - The ID of the user
+
+- Attributes
+    - id: `d19ba292-6661-41d1-a9d0-daa9e9191325` (string, required) - The ID assigned to the user
+    - username: RX14 (required) - Human-readable username displayed on the site
+    - signup_time: `2017-01-28T22:44:31Z` (required) - Timestamp when the user registered for the forums
+    - avatar_url: https://static.lewd.sx/avatars/RX14.png (required) - URL of the user's avatar image
+    - email: chris@rx14.co.uk - Email of the user
+        Only visible on the currently logged in user's profile, or to admins.
+    - usertitle: Fgt - The user's usertitle, shown underneath their username
+    - signature - The user's signature, in BBCode
+
+### Retrieve a User [GET]
+
+Retrieves information on a single user. This data is used, for example, to show the user's profile.
+
+- Response 200 (application/json)
+    - Attributes (User)
+
+### Modify a User [PATCH]
+
+Modifies a user's profile. It is only possible to modify the currently logged-in user's profile, unless the currently logged-in user is an admin.
+
+- Request (application/json)
+    - Attributes
+        - username: RX14 - New username for user
+        - email: chris@rx14.co.uk - New email for user
+        - password: pa55w0rd - New password for user
+        - avatar_id: `66014993-29b9-4f1a-89d8-ac7c4ac5acf1` - ID of new avatar for user
+        - usertitle: Fgt - New usertitle for user
+        - signature - New signature for user, in BBCode
+
+- Response 200 (application/json)
+    - Attributes (User)
+
+## Users collection [/users]
+
+### List All Users [GET]
+
+Lists all users registered on the forums.
+
+- Response 200 (application/json)
+    - Attributes (array[User])
+
+### Register a new User [POST]
+
+Registers a new user to the lewd.sx forums.
+
+- Request (application/json)
+    - Attributes
+        - username: RX14 (required) - User's username
+        - email: chris@rx14.co.uk (required) - Email for user
+        - password: pa55w0rd (required) - Password for user
+        - avatar_id: `66014993-29b9-4f1a-89d8-ac7c4ac5acf1` - ID of avatar for new user
+        - usertitle: Fgt - Usertitle for user
+        - signature - New signature for user, in BBCode
+
+- Response 201 (application/json)
+    - Headers
+        Location: /users/d19ba292-6661-41d1-a9d0-daa9e9191325
+
+# Group Avatars
+
+Avatars on lewd.sx have a fixed size, and uploaded avatars are resized to the
+correct size. The upload endpoint allows crop dimensions to be added to images
+to be cropped on the server.
+
+## Avatar [/avatars/{id}]
+
+- Parameters
+    - id: `a0cd1071-d2c0-4bd0-8d7e-bf24ba00aa17` - The ID of the avatar
+
+### Retrieve an Avatar [GET]
+
+Retrieves an avatar image file given an ID. Response is the raw binary image file.
+
+- Response 200 (image/*)
+
+## Avatars collection [/avatars]
+
+### Upload a new Avatar [POST]
+
+Upload requests are sent using `multipart/form-data` to minimise overhead.
+Optional crop data is sent in JSON in the `crop-data` form field.
+
+- Request (multipart/form-data, boundary=AaB03x)
+    - Body
+        --AaB03x
+        Content-Disposition: form-data; name="image"
+        Content-Type: image/png
+
+        ... image data...
+        --AaB03x
+        Content-Disposition: form-data; name="crop-data"
+
+        {"left": 162, "top": 52, "width": "500", "height": "500"}
+        --AaB03x--
+
+- Response 201 (application/json)
+    - Headers
+        Location: /avatars/a0cd1071-d2c0-4bd0-8d7e-bf24ba00aa17
