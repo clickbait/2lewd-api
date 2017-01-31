@@ -1,6 +1,8 @@
 # 2lewd-api
 API documentation for 2lewd - lewd.sx's in-progress forum software.
 
+[View generated documentation](https://lewd.github.io/2lewd-api/)
+
 The documentation is written in [api blueprint](https://apiblueprint.org/). The api is currently drafting in the v0 stage, so breaking changes are likely. 
 
 ## Contributing
