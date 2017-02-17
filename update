@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pupefail
+
+git push && apiary preview --path=v0.apib --output=../2lewd-api-gh-pages/index.html && (cd ../2lewd-api-gh-pages && git commit -am "Update" && git push)
