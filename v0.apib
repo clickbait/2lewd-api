@@ -23,7 +23,7 @@ TODO: query by slug
     - email: chris@rx14.co.uk - Email of the user
         Only visible on the currently logged in user's profile, or to admins.
     - usertitle: Fgt - The user's usertitle, shown underneath their username
-    - signature - The user's signature, in BBCode
+    - signature_bbcode - The user's signature, in BBCode
 
 ### Retrieve a User [GET]
 
@@ -43,7 +43,7 @@ Modifies a user's profile. It is only possible to modify the currently logged-in
         - password: pa55w0rd - New password for user
         - avatar_id: `66014993-29b9-4f1a-89d8-ac7c4ac5acf1` - ID of new avatar for user
         - usertitle: Fgt - New usertitle for user
-        - signature - New signature for user, in BBCode
+        - signature_bbcode - New signature for user, in BBCode
 
 - Response 200 (application/json)
     - Attributes (User)
@@ -68,7 +68,7 @@ Registers a new user to the lewd.sx forums.
         - password: pa55w0rd (required) - Password for user
         - avatar_id: `66014993-29b9-4f1a-89d8-ac7c4ac5acf1` - ID of avatar for new user
         - usertitle: Fgt - Usertitle for user
-        - signature - New signature for user, in BBCode
+        - signature_bbcode - New signature for user, in BBCode
 
 - Response 201 (application/json)
     - Headers
